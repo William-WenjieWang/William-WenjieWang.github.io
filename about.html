@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wenjie Wang | 个人主页</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <!-- 引入更具艺术感的字体 -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Inter:wght@200;300;400&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind配置 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            dark: '#000000',
+            light: '#FFFFFF',
+            gray: {
+              300: '#E5E5E5',
+              400: '#A3A3A3',
+              600: '#525252',
+            }
+          },
+          fontFamily: {
+            display: ['Cormorant Garamond', 'serif'], // 艺术衬线字体
+            inter: ['Inter', 'sans-serif'],
+          },
+        },
+      }
+    }
+  </script>
+  
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+      .aspect-169 {
+        aspect-ratio: 16/9;
+      }
+      .tracking-danny {
+        letter-spacing: 0.15em;
+      }
+      .text-shadow {
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+      }
+    }
+  </style>
+</head>
+<body class="font-inter bg-dark text-light min-h-screen">
+  <!-- 导航栏 -->
+  <header class="fixed top-0 left-0 right-0 z-50 py-16 px-10 transition-all duration-300">
+    <div class="container mx-auto flex justify-between items-center">
+      <!-- 左上角：作品集 -->
+      <a href="index.html#portfolio" class="text-lg md:text-xl font-display font-light tracking-danny hover:text-gray-300 transition-colors">作品集</a>
+      
+      <!-- 右上角：社交图标 -->
+      <div class="flex space-x-8">
+        <a href="https://youtube.com/@will_o_o-d?si=yDD373e2qolcIQfe" target="_blank" class="text-light hover:text-gray-300 transition-colors">
+          <i class="fa fa-youtube-play text-lg"></i>
+        </a>
+        <a href="https://www.instagram.com/wenjiehimself?igsh=dmFmM3gxZjRsbGli&utm_source=q" target="_blank" class="text-light hover:text-gray-300 transition-colors">
+          <i class="fa fa-instagram text-lg"></i>
+        </a>
+        <a href="https://www.xiaohongshu.com/user/profile/5ee410e0000000000101d8c7?xsec_token=YBqaWdV7W0kId8mi_CjEB6q6WtjKkVIK3ZXOUTaC18JHQ=&xsec_source=app_share&xhsshare=CopyLink&appuid=5ee410e0000000000101d8c7&apptime=1753003323&share_id=0f6b5abc6d854f38b6a86f38dde255fb" target="_blank" class="text-light hover:text-gray-300 transition-colors">
+          <i class="fa fa-book text-lg"></i> <!-- 使用书本图标作为小红书的替代 -->
+        </a>
+        <a href="https://b23.tv/jWANFu6" target="_blank" class="text-light hover:text-gray-300 transition-colors">
+          <i class="fa fa-play-circle text-lg"></i> <!-- 使用播放图标作为哔哩哔哩的替代 -->
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主内容区 -->
+  <main class="container mx-auto px-10 pt-40 pb-16">
+    <!-- 文字区域（上方） -->
+    <div class="max-w-4xl mx-auto mb-12 text-center">
+      <h1 class="text-2xl md:text-4xl lg:text-[clamp(2rem,5vw,3.5rem)] font-display font-extralight tracking-wider text-shadow">WENJIE WANG</h1>
+      <p class="text-xl md:text-2xl font-display font-light text-gray-300 mt-4">汪文杰</p>
+      <p class="text-sm md:text-base font-display text-gray-300 mb-4 tracking-danny">CONTACT</p>
+      <p class="text-sm md:text-base font-display text-gray-300 mb-4 tracking-danny">CONTENT CREATER / STORY TELLING</p>
+      <p class="text-sm md:text-base font-display text-gray-400 tracking-danny mb-8">3545201088@qq.com</p>
+      
+    </div>
+    
+    <!-- 照片区域 -->
+    <div class="max-w-full mx-auto mb-16">
+        <div class="aspect-169 overflow-hidden rounded-lg shadow-xl">
+            <img src="image/微信图片_20250720141445_1(1).jpg" alt="Wenjie Wang肖像" class="w-full h-full object-cover transition-transform duration-700 hover:scale-[1.02]">
+        </div>
+    </div>
+    
+    <!-- Contact信息（照片下方居中） -->
+    <div class="max-w-4xl mx-auto text-center">
+      
+      <!-- 引用语 -->
+      <p class="text-sm md:text-base font-display text-gray-400 tracking-wider">"Do What Excites" - Kelly Wakasa</p>
+    </div>
+  </main>
+
+  <!-- JavaScript -->
+  <script>
+    // 导航栏滚动效果
+    const header = document.querySelector('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('py-10');
+        header.classList.remove('py-16');
+      } else {
+        header.classList.remove('py-10');
+        header.classList.add('py-16');
+      }
+    });
+    
+    // 平滑滚动
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 100,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
