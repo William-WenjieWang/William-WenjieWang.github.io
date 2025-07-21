@@ -63,10 +63,13 @@
       .rotate-hover:hover {
         transform: perspective(1000px) rotateY(15deg);
       }
+      .grid-auto-fit {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      }
     }
   </style>
 </head>
-<body class="bg-dark text-white font-inter">
+<body class="bg-dark text-white font-inter min-h-screen flex flex-col">
   <!-- 导航栏 -->
   <header id="navbar" class="fixed top-0 left-0 right-0 z-40 transition-all duration-300 py-4">
     <div class="container mx-auto px-4">
@@ -74,9 +77,10 @@
         <a href="#portfolio" class="text-white text-2xl font-display tracking-wider">作品集</a>
         
         <!-- 桌面端导航 -->
-        <ul class="hidden md:flex space-x-8">
-          <li><a href="about.html" class="text-white hover:text-secondary transition-colors font-display">CONTACT</a></li>
-        </ul>
+        <div class="hidden md:flex items-center space-x-8">
+          <h2 class="text-[clamp(1.8rem,4vw,3rem)] font-display italic font-bold text-white text-shadow-lg tracking-wider rotate-hover cursor-pointer">WENJIE WANG</h2>
+          <a href="about.html" class="text-white hover:text-secondary transition-colors font-display">CONTACT</a>
+        </div>
         
         <!-- 移动端菜单按钮 -->
         <button id="menu-toggle" class="md:hidden text-white text-2xl">
@@ -87,24 +91,27 @@
       <!-- 移动端菜单 -->
       <div id="mobile-menu" class="hidden md:hidden bg-dark/95 backdrop-blur mt-4 rounded-lg p-4">
         <ul class="space-y-4">
-          <li><a href="about.html" class="block text-white hover:text-secondary transition-colors font-display">CONTACT</a></li>
+          <li><h2 class="text-[clamp(1.8rem,4vw,3rem)] font-display italic font-bold text-white text-shadow-lg tracking-wider mb-4">WENJIE WANG</h2></li>
+          <li><a href="#portfolio" class="block text-white hover:text-secondary transition-colors">作品集</a></li>
+          <li><a href="about.html" class="block text-white hover:text-secondary transition-colors">CONTACT</a></li>
         </ul>
       </div>
     </div>
   </header>
 
   <!-- 作品集区域 - 优化布局 -->
-  <section id="portfolio" class="pt-24 pb-16 bg-dark">
-    <div class="container mx-auto px-4">
-      <div class="text-center mb-16">
-        <h2 class="text-[clamp(2.5rem,6vw,4.5rem)] font-display italic font-bold mb-0 text-white text-shadow-lg tracking-wider rotate-hover cursor-pointer">WENJIE WANG</h2>
+  <section id="portfolio" class="flex-grow pt-24 pb-16 bg-dark">
+    <div class="container mx-auto px-4 h-full">
+      <!-- 桌面端标题隐藏 -->
+      <div class="text-center mb-8 md:hidden">
+        <h2 class="text-[clamp(1.8rem,4vw,3rem)] font-display italic font-bold text-white text-shadow-lg tracking-wider rotate-hover cursor-pointer">WENJIE WANG</h2>
       </div>
       
-      <!-- 视频网格布局 -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- 视频网格布局 - 使用flexbox确保九宫格占满 -->
+      <div class="flex flex-wrap justify-center -mx-3 h-full">
         <!-- 视频项1 -->
-        <div class="portfolio-item vlog group" data-category="vlog">
-          <div class="relative overflow-hidden shadow-xl aspect-video-rect bg-black transition-all duration-300 hover:shadow-2xl transform hover:-translate-y-2">
+        <div class="portfolio-item vlog group w-full sm:w-1/2 lg:w-1/3 px-3 mb-6" data-category="vlog">
+          <div class="relative overflow-hidden shadow-xl aspect-video-rect bg-black transition-all duration-300 hover:shadow-2xl transform hover:-translate-y-2 h-full">
             <div class="absolute inset-0 flex items-center justify-center bg-black/50 z-10 opacity-100 group-hover:opacity-0 transition-opacity duration-300">
               <div class="video-loader animate-spin rounded-full h-16 w-16 border-b-2 border-primary"></div>
             </div>
@@ -128,9 +135,10 @@
           </div>
         </div>
         
+        <!-- 视频项2-9 结构相同，依次排列 -->
         <!-- 视频项2 -->
-        <div class="portfolio-item short group" data-category="全部">
-          <div class="relative overflow-hidden shadow-xl aspect-video-rect bg-black transition-all duration-300 hover:shadow-2xl transform hover:-translate-y-2">
+        <div class="portfolio-item short group w-full sm:w-1/2 lg:w-1/3 px-3 mb-6" data-category="全部">
+          <div class="relative overflow-hidden shadow-xl aspect-video-rect bg-black transition-all duration-300 hover:shadow-2xl transform hover:-translate-y-2 h-full">
             <div class="absolute inset-0 flex items-center justify-center bg-black/50 z-10 opacity-100 group-hover:opacity-0 transition-opacity duration-300">
               <div class="video-loader animate-spin rounded-full h-16 w-16 border-b-2 border-primary"></div>
             </div>
@@ -155,8 +163,8 @@
         </div>
         
         <!-- 视频项3 -->
-        <div class="portfolio-item film group" data-category="全部">
-          <div class="relative overflow-hidden shadow-xl aspect-video-rect bg-black transition-all duration-300 hover:shadow-2xl transform hover:-translate-y-2">
+        <div class="portfolio-item film group w-full sm:w-1/2 lg:w-1/3 px-3 mb-6" data-category="全部">
+          <div class="relative overflow-hidden shadow-xl aspect-video-rect bg-black transition-all duration-300 hover:shadow-2xl transform hover:-translate-y-2 h-full">
             <div class="absolute inset-0 flex items-center justify-center bg-black/50 z-10 opacity-100 group-hover:opacity-0 transition-opacity duration-300">
               <div class="video-loader animate-spin rounded-full h-16 w-16 border-b-2 border-primary"></div>
             </div>
@@ -183,8 +191,8 @@
         </div>
         
         <!-- 视频项4 -->
-        <div class="portfolio-item vlog group" data-category="全部">
-          <div class="relative overflow-hidden shadow-xl aspect-video-rect bg-black transition-all duration-300 hover:shadow-2xl transform hover:-translate-y-2">
+        <div class="portfolio-item vlog group w-full sm:w-1/2 lg:w-1/3 px-3 mb-6" data-category="全部">
+          <div class="relative overflow-hidden shadow-xl aspect-video-rect bg-black transition-all duration-300 hover:shadow-2xl transform hover:-translate-y-2 h-full">
             <div class="absolute inset-0 flex items-center justify-center bg-black/50 z-10 opacity-100 group-hover:opacity-0 transition-opacity duration-300">
               <div class="video-loader animate-spin rounded-full h-16 w-16 border-b-2 border-primary"></div>
             </div>
@@ -211,8 +219,8 @@
         </div>
         
         <!-- 视频项5 -->
-        <div class="portfolio-item vlog group" data-category="全部">
-          <div class="relative overflow-hidden shadow-xl aspect-video-rect bg-black transition-all duration-300 hover:shadow-2xl transform hover:-translate-y-2">
+        <div class="portfolio-item vlog group w-full sm:w-1/2 lg:w-1/3 px-3 mb-6" data-category="全部">
+          <div class="relative overflow-hidden shadow-xl aspect-video-rect bg-black transition-all duration-300 hover:shadow-2xl transform hover:-translate-y-2 h-full">
             <div class="absolute inset-0 flex items-center justify-center bg-black/50 z-10 opacity-100 group-hover:opacity-0 transition-opacity duration-300">
               <div class="video-loader animate-spin rounded-full h-16 w-16 border-b-2 border-primary"></div>
             </div>
@@ -239,8 +247,8 @@
         </div>
         
         <!-- 视频项6 -->
-        <div class="portfolio-item vlog group" data-category="全部">
-          <div class="relative overflow-hidden shadow-xl aspect-video-rect bg-black transition-all duration-300 hover:shadow-2xl transform hover:-translate-y-2">
+        <div class="portfolio-item vlog group w-full sm:w-1/2 lg:w-1/3 px-3 mb-6" data-category="全部">
+          <div class="relative overflow-hidden shadow-xl aspect-video-rect bg-black transition-all duration-300 hover:shadow-2xl transform hover:-translate-y-2 h-full">
             <div class="absolute inset-0 flex items-center justify-center bg-black/50 z-10 opacity-100 group-hover:opacity-0 transition-opacity duration-300">
               <div class="video-loader animate-spin rounded-full h-16 w-16 border-b-2 border-primary"></div>
             </div>
@@ -267,8 +275,8 @@
         </div>
         
         <!-- 视频项7 -->
-        <div class="portfolio-item vlog group" data-category="全部">
-          <div class="relative overflow-hidden shadow-xl aspect-video-rect bg-black transition-all duration-300 hover:shadow-2xl transform hover:-translate-y-2">
+        <div class="portfolio-item vlog group w-full sm:w-1/2 lg:w-1/3 px-3 mb-6" data-category="全部">
+          <div class="relative overflow-hidden shadow-xl aspect-video-rect bg-black transition-all duration-300 hover:shadow-2xl transform hover:-translate-y-2 h-full">
             <div class="absolute inset-0 flex items-center justify-center bg-black/50 z-10 opacity-100 group-hover:opacity-0 transition-opacity duration-300">
               <div class="video-loader animate-spin rounded-full h-16 w-16 border-b-2 border-primary"></div>
             </div>
@@ -295,8 +303,8 @@
         </div>
         
         <!-- 视频项8 -->
-        <div class="portfolio-item vlog group" data-category="全部">
-          <div class="relative overflow-hidden shadow-xl aspect-video-rect bg-black transition-all duration-300 hover:shadow-2xl transform hover:-translate-y-2">
+        <div class="portfolio-item vlog group w-full sm:w-1/2 lg:w-1/3 px-3 mb-6" data-category="全部">
+          <div class="relative overflow-hidden shadow-xl aspect-video-rect bg-black transition-all duration-300 hover:shadow-2xl transform hover:-translate-y-2 h-full">
             <div class="absolute inset-0 flex items-center justify-center bg-black/50 z-10 opacity-100 group-hover:opacity-0 transition-opacity duration-300">
               <div class="video-loader animate-spin rounded-full h-16 w-16 border-b-2 border-primary"></div>
             </div>
@@ -323,8 +331,8 @@
         </div>
         
         <!-- 视频项9 -->
-        <div class="portfolio-item vlog group" data-category="全部">
-          <div class="relative overflow-hidden shadow-xl aspect-video-rect bg-black transition-all duration-300 hover:shadow-2xl transform hover:-translate-y-2">
+        <div class="portfolio-item vlog group w-full sm:w-1/2 lg:w-1/3 px-3 mb-6" data-category="全部">
+          <div class="relative overflow-hidden shadow-xl aspect-video-rect bg-black transition-all duration-300 hover:shadow-2xl transform hover:-translate-y-2 h-full">
             <div class="absolute inset-0 flex items-center justify-center bg-black/50 z-10 opacity-100 group-hover:opacity-0 transition-opacity duration-300">
               <div class="video-loader animate-spin rounded-full h-16 w-16 border-b-2 border-primary"></div>
             </div>
