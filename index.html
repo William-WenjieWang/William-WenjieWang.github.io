@@ -53,6 +53,37 @@
         50% { transform: translateY(-10px); }
         100% { transform: translateY(0px); }
       }
+      /* 新增英雄区域动画样式 */
+      .hero-title {
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeUp 1.2s ease forwards 0.3s;
+      }
+      .hero-subtitle {
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeUp 1.2s ease forwards 0.6s;
+      }
+      .hero-cta {
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeUp 1.2s ease forwards 0.9s;
+      }
+      .hero-scroll {
+        opacity: 0;
+        animation: fadeIn 1s ease forwards 1.5s;
+      }
+      @keyframes fadeUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
+        }
+      }
     }
   </style>
 </head>
@@ -101,21 +132,21 @@
     </div>
     
     <div class="container mx-auto px-4 relative z-20 text-center">
-      <h1 class="text-2xl md:text-4xl lg:text-5xl text-white font-display font-extralight tracking-wider text-shadow mb-4">
+      <h1 class="text-2xl md:text-4xl lg:text-5xl text-white font-display font-extralight tracking-wider text-shadow mb-4 hero-title">
         WENJIE WANG
       </h1>
-      <p class="text-xl md:text-2xl font-display font-light text-gray-300 mt-2 mb-8">汪文杰</p>
+      <p class="text-xl md:text-2xl font-display font-light text-gray-300 mt-2 mb-8 hero-subtitle">汪文杰</p>
       
-      <a href="about.html" class="inline-block text-white font-light tracking-wider hover:text-secondary transition-colors">
+      <a href="about.html" class="inline-block text-white font-light tracking-wider hover:text-secondary transition-colors hero-cta">
         contact 简介
       </a>
       
       <div class="flex flex-col items-center mt-12 space-y-[60px]">
-        <a href="#portfolio" class="inline-block bg-black hover:bg-black/90 text-white font-medium px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+        <a href="#portfolio" class="inline-block bg-black hover:bg-black/90 text-white font-medium px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 hero-cta">
           浏览作品集
         </a>
         
-        <a href="#portfolio" class="text-white animate-bounce inline-block">
+        <a href="#portfolio" class="text-white animate-bounce inline-block hero-scroll">
           <i class="fa fa-angle-down text-4xl"></i>
         </a>
       </div>
