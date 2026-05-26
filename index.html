@@ -28,8 +28,140 @@
     }
   </script>
   <style>
+    html {
+      background: #000;
+      overflow-x: hidden;
+    }
     body {
       scroll-behavior: smooth;
+      background: #000;
+      max-width: 100%;
+    }
+    .cover-sequence {
+      position: relative;
+      height: var(--cover-sequence-height, 585svh);
+      min-height: 100svh;
+      background: #000;
+    }
+    .cover-sequence-sticky {
+      position: sticky;
+      top: 0;
+      height: 100svh;
+      min-height: 100svh;
+      overflow: hidden;
+      background: #000;
+    }
+    .cover-slides {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    .cover-sequence-sticky.cover-slides {
+      position: sticky;
+      top: 0;
+      height: 100svh;
+      min-height: 100svh;
+    }
+    .cover-slide {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      display: block;
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      border: 0;
+      overflow: hidden;
+      color: #fff;
+      background: #000;
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(8%);
+      transition: opacity 260ms ease-out, transform 260ms ease-out, visibility 0s linear 260ms;
+      visibility: hidden;
+    }
+    .cover-slide.active {
+      z-index: 2;
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+      transition: opacity 260ms ease-out, transform 260ms ease-out;
+      visibility: visible;
+    }
+    .cover-slide.previous {
+      z-index: 1;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-8%);
+      visibility: hidden;
+    }
+    .cover-slide.next {
+      z-index: 1;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(8%);
+      visibility: hidden;
+    }
+    .cover-slide-image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.01);
+      transition: transform 260ms ease-out;
+    }
+    .cover-slide.active .cover-slide-image {
+      transform: scale(1);
+    }
+    .cover-slide::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.24), rgba(0, 0, 0, 0.1) 42%, rgba(0, 0, 0, 0.38));
+      pointer-events: none;
+    }
+    .cover-slide-title,
+    .cover-slide-index {
+      position: absolute;
+      z-index: 2;
+      color: rgba(255, 255, 255, 0.86);
+      text-shadow: 0 1px 24px rgba(0, 0, 0, 0.45);
+      opacity: 0;
+      transition: opacity 220ms ease-out, transform 220ms ease-out;
+    }
+    .cover-slide-title {
+      left: 1.5rem;
+      bottom: 1.45rem;
+      max-width: min(28rem, calc(100vw - 6rem));
+      font-size: clamp(0.9rem, 1.15vw, 1.1rem);
+      font-weight: 600;
+      line-height: 1.45;
+      text-align: left;
+      transform: translateY(8px);
+    }
+    .cover-slide-index {
+      right: 1.5rem;
+      bottom: 1.55rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      transform: translateY(6px);
+    }
+    .cover-slide.active .cover-slide-title,
+    .cover-slide.active .cover-slide-index,
+    .cover-slide:hover .cover-slide-title,
+    .cover-slide:hover .cover-slide-index,
+    .cover-slide:focus-visible .cover-slide-title,
+    .cover-slide:focus-visible .cover-slide-index {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .cover-slide:focus-visible {
+      outline: 1px solid rgba(255, 255, 255, 0.72);
+      outline-offset: -5px;
     }
     .portfolio-wall {
       padding: 6rem 0.75rem 0.75rem;
@@ -183,6 +315,35 @@
       width: 100%;
       height: 100%;
     }
+    @supports (height: 100dvh) {
+      .cover-sequence {
+        height: var(--cover-sequence-height-dvh, var(--cover-sequence-height, 585svh));
+      }
+      .cover-sequence-sticky {
+        height: 100dvh;
+        min-height: 100dvh;
+      }
+      .cover-sequence-sticky.cover-slides {
+        height: 100dvh;
+        min-height: 100dvh;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      body {
+        scroll-behavior: auto;
+      }
+      .cover-slide,
+      .cover-slide.previous,
+      .cover-slide.next {
+        transform: none;
+        transition: none;
+      }
+      .cover-slide-image,
+      .cover-slide-title,
+      .cover-slide-index {
+        transition: none;
+      }
+    }
     @media (min-width: 1180px) {
       .video-wall-grid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -191,8 +352,13 @@
     @media (max-width: 768px) {
       html,
       body {
-        overflow-x: hidden;
         background: #000;
+      }
+      html {
+        overflow-x: hidden;
+      }
+      body {
+        overflow-x: visible;
       }
       header.fixed {
         padding: 0.85rem 1rem;
@@ -226,6 +392,89 @@
         height: 100%;
         object-fit: cover;
       }
+      .cover-sequence {
+        position: relative;
+        width: 100%;
+        height: var(--cover-sequence-height-mobile, 558svh);
+        min-height: var(--cover-sequence-height-mobile, 558svh);
+        overflow: visible;
+      }
+      .cover-sequence-sticky {
+        position: sticky;
+        top: 0;
+        height: 100svh;
+        min-height: 100svh;
+        overflow: hidden;
+      }
+      .cover-sequence-sticky.cover-slides {
+        position: sticky;
+        top: 0;
+        height: 100svh;
+        min-height: 100svh;
+      }
+      .cover-slides {
+        position: relative;
+        width: 100%;
+        height: 100svh;
+      }
+      .cover-slide,
+      .cover-slide.previous,
+      .cover-slide.next {
+        position: absolute;
+        inset: 0;
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        height: 100%;
+        min-height: 100%;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(6%);
+        transition: opacity 220ms ease-out, transform 220ms ease-out, visibility 0s linear 220ms;
+        visibility: hidden;
+      }
+      .cover-slide.previous {
+        transform: translateY(-6%);
+      }
+      .cover-slide.active {
+        z-index: 2;
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+        transition: opacity 220ms ease-out, transform 220ms ease-out;
+        visibility: visible;
+      }
+      .cover-slide-image {
+        width: 100%;
+        max-width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transform: none;
+        transition: transform 220ms ease-out;
+      }
+      .cover-slide-title {
+        left: 50%;
+        bottom: 8svh;
+        width: min(86vw, 520px);
+        max-width: min(86vw, 520px);
+        color: rgba(255, 255, 255, 0.92);
+        font-size: clamp(1rem, 4.5vw, 1.5rem);
+        line-height: 1.25;
+        opacity: 1;
+        pointer-events: none;
+        text-align: center;
+        text-shadow: 0 2px 18px rgba(0, 0, 0, 0.65);
+        transform: translateX(-50%);
+        visibility: visible;
+        z-index: 3;
+      }
+      .cover-slide-index {
+        right: 1rem;
+        bottom: 1.05rem;
+        font-size: 0.66rem;
+        opacity: 1;
+        transform: none;
+      }
       .portfolio-wall {
         padding: 0 0 0.625rem;
       }
@@ -248,9 +497,16 @@
         aspect-ratio: 16 / 9;
       }
       .video-title-overlay {
-        padding: 1rem;
-        background: rgba(0, 0, 0, 0.28);
-        font-size: 0.95rem;
+        align-items: flex-end;
+        justify-content: center;
+        padding: 0 18px 22px;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.48), rgba(0, 0, 0, 0.08) 55%, rgba(0, 0, 0, 0));
+        color: rgba(255, 255, 255, 0.92);
+        font-size: clamp(0.94rem, 4.2vw, 1.38rem);
+        line-height: 1.25;
+        opacity: 1;
+        text-shadow: 0 2px 16px rgba(0, 0, 0, 0.65);
+        transform: none;
       }
       .video-modal {
         padding: 0.75rem;
@@ -259,6 +515,36 @@
         width: 2.5rem;
         height: 2.5rem;
         background: transparent;
+      }
+    }
+    @media (hover: none) {
+      .cover-slide-title {
+        left: 50%;
+        bottom: 8svh;
+        width: min(86vw, 520px);
+        max-width: min(86vw, 520px);
+        color: rgba(255, 255, 255, 0.92);
+        font-size: clamp(1rem, 4.5vw, 1.5rem);
+        line-height: 1.25;
+        opacity: 1;
+        pointer-events: none;
+        text-align: center;
+        text-shadow: 0 2px 18px rgba(0, 0, 0, 0.65);
+        transform: translateX(-50%);
+        visibility: visible;
+        z-index: 3;
+      }
+      .video-title-overlay {
+        align-items: flex-end;
+        justify-content: center;
+        padding: 0 18px 22px;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.48), rgba(0, 0, 0, 0.08) 55%, rgba(0, 0, 0, 0));
+        color: rgba(255, 255, 255, 0.92);
+        font-size: clamp(0.94rem, 4.2vw, 1.38rem);
+        line-height: 1.25;
+        opacity: 1;
+        text-shadow: 0 2px 16px rgba(0, 0, 0, 0.65);
+        transform: none;
       }
     }
   </style>
@@ -292,6 +578,57 @@
     </video>
 
     <div class="absolute inset-0 bg-black/35 z-10"></div>
+  </section>
+
+  <!-- Cover Sequence -->
+  <section id="coverSequence" class="cover-sequence" style="--cover-sequence-height: 585svh; --cover-sequence-height-dvh: 585dvh; --cover-sequence-height-mobile: 558svh;" aria-label="Video covers">
+    <div class="cover-sequence-sticky cover-slides">
+      <button class="cover-slide active" type="button" data-cover-project="0" aria-label="播放我在国外大学的一天">
+        <img class="cover-slide-image" src="./image/bili-covers/BV13D4y1C7C5.jpg" alt="" loading="eager" decoding="async" fetchpriority="high">
+        <span class="cover-slide-title">我在国外大学的一天</span>
+        <span class="cover-slide-index">01 / 09</span>
+      </button>
+      <button class="cover-slide next" type="button" data-cover-project="1" aria-label="播放20岁了，你人生的目标是什么？">
+        <img class="cover-slide-image" src="./image/bili-covers/BV1314y1W7MT.jpg" alt="" loading="lazy" decoding="async">
+        <span class="cover-slide-title">20岁了，你人生的目标是什么？</span>
+        <span class="cover-slide-index">02 / 09</span>
+      </button>
+      <button class="cover-slide next" type="button" data-cover-project="2" aria-label="播放The first thanksgiving">
+        <img class="cover-slide-image" src="./image/bili-covers/BV1mD4y1e7uY.jpg" alt="" loading="lazy" decoding="async">
+        <span class="cover-slide-title">The first thanksgiving</span>
+        <span class="cover-slide-index">03 / 09</span>
+      </button>
+      <button class="cover-slide next" type="button" data-cover-project="3" aria-label="播放在罗格斯大学一个忙碌的一天">
+        <img class="cover-slide-image" src="./image/bili-covers/BV1cW4y1u7ZU.jpg" alt="" loading="lazy" decoding="async">
+        <span class="cover-slide-title">在罗格斯大学一个忙碌的一天</span>
+        <span class="cover-slide-index">04 / 09</span>
+      </button>
+      <button class="cover-slide next" type="button" data-cover-project="4" aria-label="播放「新泽西」罗格斯大学航拍">
+        <img class="cover-slide-image" src="./image/bili-covers/BV1JV4y1D7fs.jpg" alt="" loading="lazy" decoding="async">
+        <span class="cover-slide-title">「新泽西」罗格斯大学航拍</span>
+        <span class="cover-slide-index">05 / 09</span>
+      </button>
+      <button class="cover-slide next" type="button" data-cover-project="5" aria-label="播放每一件事情发生都有原因">
+        <img class="cover-slide-image" src="./image/bili-covers/BV1Qa4y1A7wE.jpg" alt="" loading="lazy" decoding="async">
+        <span class="cover-slide-title">每一件事情发生都有原因</span>
+        <span class="cover-slide-index">06 / 09</span>
+      </button>
+      <button class="cover-slide next" type="button" data-cover-project="6" aria-label="播放〖小杰WIlliam〗第一次剪辑练习">
+        <img class="cover-slide-image" src="./image/bili-covers/BV1cj411k7U4.jpg" alt="" loading="lazy" decoding="async">
+        <span class="cover-slide-title">〖小杰WIlliam〗第一次剪辑练习</span>
+        <span class="cover-slide-index">07 / 09</span>
+      </button>
+      <button class="cover-slide next" type="button" data-cover-project="7" aria-label="播放未来的人生我不确定">
+        <img class="cover-slide-image" src="./image/bili-covers/BV1Au4y187Qo.jpg" alt="" loading="lazy" decoding="async">
+        <span class="cover-slide-title">未来的人生我不确定</span>
+        <span class="cover-slide-index">08 / 09</span>
+      </button>
+      <button class="cover-slide next" type="button" data-cover-project="8" aria-label="播放记忆困在了那场大雪里 惊醒">
+        <img class="cover-slide-image" src="./image/bili-covers/BV11e411e73e.jpg" alt="" loading="lazy" decoding="async">
+        <span class="cover-slide-title">记忆困在了那场大雪里 惊醒</span>
+        <span class="cover-slide-index">09 / 09</span>
+      </button>
+    </div>
   </section>
 
   <!-- Portfolio -->
@@ -394,7 +731,11 @@
     const videoModalFrame = document.getElementById('videoModalFrame');
     const videoModalTitle = document.getElementById('videoModalTitle');
     const videoModalClose = document.querySelector('.video-modal-close');
+    const coverSequence = document.querySelector('.cover-sequence');
+    const coverSlides = Array.from(document.getElementsByClassName('cover-slide'));
     let lastVideoTrigger = null;
+    let activeCoverIndex = -1;
+    let coverRaf = 0;
 
     const clearModalVideo = () => {
       if (videoModalFrame) {
@@ -447,6 +788,66 @@
       videoModalClose.focus();
     };
 
+    const isPinnedCoverSequence = () => {
+      return Boolean(coverSequence && coverSlides.length);
+    };
+
+    const setCoverIndex = (nextIndex) => {
+      const index = Math.max(0, Math.min(coverSlides.length - 1, nextIndex));
+
+      if (index === activeCoverIndex) {
+        return;
+      }
+
+      activeCoverIndex = index;
+      coverSlides.forEach((slide, slideIndex) => {
+        slide.classList.toggle('active', slideIndex === index);
+        slide.classList.toggle('previous', slideIndex < index);
+        slide.classList.toggle('next', slideIndex > index);
+      });
+
+    };
+
+    const syncCoverSequenceHeight = () => {
+      if (!coverSequence || !coverSlides.length) {
+        return;
+      }
+
+      coverSequence.style.setProperty('--cover-sequence-height', `${coverSlides.length * 65}svh`);
+      coverSequence.style.setProperty('--cover-sequence-height-dvh', `${coverSlides.length * 65}dvh`);
+      coverSequence.style.setProperty('--cover-sequence-height-mobile', `${coverSlides.length * 62}svh`);
+    };
+
+    const updateCoverSequence = () => {
+      coverRaf = 0;
+
+      if (!coverSequence || !coverSlides.length) {
+        return;
+      }
+
+      if (!isPinnedCoverSequence()) {
+        setCoverIndex(0);
+        return;
+      }
+
+      const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 1;
+      const sequenceTop = coverSequence.getBoundingClientRect().top;
+      const maxPinnedScroll = Math.max(1, coverSequence.offsetHeight - viewportHeight);
+      const sequenceScroll = Math.min(Math.max(-sequenceTop, 0), maxPinnedScroll);
+      const slideLength = Math.max(1, coverSlides.length - 1);
+      const nextIndex = Math.round((sequenceScroll / maxPinnedScroll) * slideLength);
+
+      setCoverIndex(nextIndex);
+    };
+
+    const requestCoverUpdate = () => {
+      if (coverRaf) {
+        return;
+      }
+
+      coverRaf = window.requestAnimationFrame(updateCoverSequence);
+    };
+
     videoProjects.forEach((project) => {
       if (!project.dataset.videoSrc) {
         Array.from(project.getElementsByClassName('video-trigger')).forEach((trigger) => {
@@ -461,6 +862,30 @@
         });
       });
     });
+
+    coverSlides.forEach((slide) => {
+      slide.addEventListener('click', () => {
+        const projectIndex = Number(slide.dataset.coverProject);
+        const project = videoProjects[projectIndex];
+
+        if (project) {
+          openVideoModal(project, slide);
+        }
+      });
+    });
+
+    syncCoverSequenceHeight();
+    setCoverIndex(0);
+    window.addEventListener('scroll', requestCoverUpdate, { passive: true });
+    window.addEventListener('resize', () => {
+      syncCoverSequenceHeight();
+      requestCoverUpdate();
+    });
+    window.addEventListener('orientationchange', () => {
+      syncCoverSequenceHeight();
+      requestCoverUpdate();
+    });
+    requestCoverUpdate();
 
     document.querySelectorAll('.video-poster').forEach((poster) => {
       poster.addEventListener('error', () => {
