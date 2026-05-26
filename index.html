@@ -31,9 +31,235 @@
     body {
       scroll-behavior: smooth;
     }
-    .video-hover:hover iframe {
-      filter: brightness(1.2);
-      transform: scale(1.02);
+    .portfolio-wall {
+      padding: 6rem 0.75rem 0.75rem;
+      background: #000;
+    }
+    .video-wall-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.75rem;
+    }
+    .video-tile {
+      position: relative;
+      overflow: hidden;
+      background: #050505;
+      min-width: 0;
+    }
+    .video-tile-media {
+      position: relative;
+      display: block;
+      width: 100%;
+      overflow: hidden;
+      border: 0;
+      border-radius: 0;
+      background: #0b0b0b;
+      aspect-ratio: 16 / 9;
+      cursor: pointer;
+    }
+    .video-poster {
+      position: absolute;
+      inset: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 1;
+      transform: scale(1);
+      transition: transform 420ms ease, opacity 360ms ease;
+    }
+    .video-tile-media.is-poster-missing .video-poster {
+      opacity: 0;
+    }
+    .video-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.38);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      background: #050505;
+    }
+    .video-title-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      background: rgba(0, 0, 0, 0.35);
+      color: #fff;
+      font-size: clamp(1rem, 1.6vw, 1.45rem);
+      font-weight: 600;
+      letter-spacing: 0;
+      line-height: 1.35;
+      opacity: 0;
+      text-align: center;
+      transform: translateY(8px);
+      transition: opacity 360ms ease, transform 360ms ease;
+    }
+    .video-tile-media:hover .video-poster,
+    .video-tile-media:focus-visible .video-poster {
+      transform: scale(1.025);
+    }
+    .video-tile-media:hover .video-title-overlay,
+    .video-tile-media:focus-visible .video-title-overlay {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .video-tile-media:focus-visible {
+      outline: 1px solid rgba(255, 255, 255, 0.7);
+      outline-offset: 3px;
+    }
+    body.modal-open {
+      overflow: hidden;
+    }
+    .video-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 80;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.25rem;
+      background: rgba(0, 0, 0, 0.86);
+    }
+    .video-modal.active {
+      display: flex;
+    }
+    .video-modal-panel {
+      width: min(1040px, 100%);
+    }
+    .video-modal-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 0.8rem;
+    }
+    .video-modal-title {
+      min-width: 0;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .video-modal-close {
+      flex: 0 0 auto;
+      width: 2.75rem;
+      height: 2.75rem;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 50%;
+      color: #fff;
+      background: rgba(255, 255, 255, 0.04);
+      font-size: 1.35rem;
+      line-height: 1;
+      transition: border-color 220ms ease, background 220ms ease;
+    }
+    .video-modal-close:hover {
+      border-color: rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.08);
+    }
+    .video-modal-frame {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 0;
+      background: #050505;
+      aspect-ratio: 16 / 9;
+    }
+    .video-modal-frame iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+    @media (min-width: 1180px) {
+      .video-wall-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+    @media (max-width: 768px) {
+      html,
+      body {
+        overflow-x: hidden;
+        background: #000;
+      }
+      header.fixed {
+        padding: 0.85rem 1rem;
+        background: rgba(0, 0, 0, 0.18);
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+      }
+      header .space-x-8 > :not([hidden]) ~ :not([hidden]) {
+        margin-left: 1.2rem;
+      }
+      header a {
+        font-size: 0.68rem;
+        letter-spacing: 0.12em;
+      }
+      header .gap-6 {
+        gap: 0.85rem;
+      }
+      header .text-xl {
+        font-size: 0.92rem;
+        opacity: 0.62;
+      }
+      #home {
+        width: 100%;
+        height: 100svh;
+        min-height: 100svh;
+        max-height: 100svh;
+        overflow: hidden;
+      }
+      #home video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .portfolio-wall {
+        padding: 0 0 0.625rem;
+      }
+      .video-wall-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+      }
+      .video-tile {
+        width: 100%;
+        border-radius: 0;
+        background: #000;
+      }
+      .video-tile-media {
+        width: 100%;
+        border-radius: 0;
+        background: #000;
+        aspect-ratio: 16 / 9;
+      }
+      .video-title-overlay {
+        padding: 1rem;
+        background: rgba(0, 0, 0, 0.28);
+        font-size: 0.95rem;
+      }
+      .video-modal {
+        padding: 0.75rem;
+      }
+      .video-modal-close {
+        width: 2.5rem;
+        height: 2.5rem;
+        background: transparent;
+      }
     }
   </style>
 </head>
@@ -65,97 +291,95 @@
       <source src="./video/Timeline 2.mp4" type="video/mp4" />
     </video>
 
-    <div class="absolute inset-0 bg-black/70 z-10"></div>
-    <div class="relative z-20 text-center px-6" data-aos="fade-up">
-      <h2 class="text-5xl md:text-7xl font-display font-extrabold mb-4 tracking-tight leading-tight">Create. Content. Repeat.</h2>
-      <p class="text-lg md:text-2xl text-gray-300 max-w-xl mx-auto">随心而动</p>
-      <a href="#portfolio" class="mt-10 inline-block px-8 py-3 bg-secondary text-white rounded-full text-sm uppercase tracking-widest font-semibold hover:bg-secondary/80 transition">浏览作品</a>
-    </div>
+    <div class="absolute inset-0 bg-black/35 z-10"></div>
   </section>
 
   <!-- Portfolio -->
-  <section id="portfolio" class="py-24 px-6 md:px-16 bg-dark">
-    <div class="text-center mb-16" data-aos="fade-up">
-      <h3 class="text-4xl font-bold mb-2">精选作品</h3>
-      <p class="text-gray-400">我镜头中的真实与想象</p>
-    </div>
+  <section id="portfolio" class="portfolio-wall">
+    <div class="video-wall-grid">
+      <article class="video-tile video-project" data-video-title="我在国外大学的一天" data-video-src="https://player.bilibili.com/player.html?isOutside=true&aid=731571397&bvid=BV13D4y1C7C5&cid=860417736&p=1" data-aos="fade-up">
+        <button class="video-tile-media video-trigger" type="button" aria-label="播放我在国外大学的一天">
+          <span class="video-placeholder">VIEW</span>
+          <img class="video-poster" src="./image/bili-covers/BV13D4y1C7C5.jpg" alt="" loading="lazy" decoding="async">
+          <span class="video-title-overlay">我在国外大学的一天</span>
+        </button>
+      </article>
 
-    <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-      <!-- 作品项列表 -->
-      <div class="rounded-xl overflow-hidden bg-black video-hover transition-all" data-aos="zoom-in">
-        <div class="aspect-video">
-          <iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=731571397&bvid=BV13D4y1C7C5&cid=860417736&p=1" class="w-full h-full" frameborder="0" allowfullscreen loading="lazy"></iframe>
-        </div>
-        <div class="p-4">
-          <h4 class="text-lg font-semibold">我在国外大学的一天</h4>
-        </div>
-      </div>
-      <div class="rounded-xl overflow-hidden bg-black video-hover transition-all" data-aos="zoom-in">
-        <div class="aspect-video">
-          <iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=775086784&bvid=BV1314y1W7MT&cid=887994516&p=1" class="w-full h-full" frameborder="0" allowfullscreen loading="lazy"></iframe>
-        </div>
-        <div class="p-4">
-          <h4 class="text-lg font-semibold">20岁了，你人生的目标是什么？</h4>
-        </div>
-      </div>
-      <div class="rounded-xl overflow-hidden bg-black video-hover transition-all" data-aos="zoom-in">
-        <div class="aspect-video">
-          <iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=733081057&bvid=BV1mD4y1e7uY&cid=902786377&p=1" class="w-full h-full" frameborder="0" allowfullscreen loading="lazy"></iframe>
-        </div>
-        <div class="p-4">
-          <h4 class="text-lg font-semibold">The first thanksgiving</h4>
-        </div>
-      </div>
-      <div class="rounded-xl overflow-hidden bg-black video-hover transition-all" data-aos="zoom-in">
-        <div class="aspect-video">
-          <iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=946215392&bvid=BV1cW4y1u7ZU&cid=919820327&p=1" class="w-full h-full" frameborder="0" allowfullscreen loading="lazy"></iframe>
-        </div>
-        <div class="p-4">
-          <h4 class="text-lg font-semibold">在罗格斯大学一个忙碌的一天</h4>
-        </div>
-      </div>
-      <div class="rounded-xl overflow-hidden bg-black video-hover transition-all" data-aos="zoom-in">
-        <div class="aspect-video">
-          <iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=867162461&bvid=BV1JV4y1D7fs&cid=1087438320&p=1" class="w-full h-full" frameborder="0" allowfullscreen loading="lazy"></iframe>
-        </div>
-        <div class="p-4">
-          <h4 class="text-lg font-semibold">「新泽西」罗格斯大学航拍</h4>
-        </div>
-      </div>
-      <div class="rounded-xl overflow-hidden bg-black video-hover transition-all" data-aos="zoom-in">
-        <div class="aspect-video">
-          <iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=655103117&bvid=BV1Qa4y1A7wE&cid=1097609725&p=1" class="w-full h-full" frameborder="0" allowfullscreen loading="lazy"></iframe>
-        </div>
-        <div class="p-4">
-          <h4 class="text-lg font-semibold">每一件事情发生都有原因</h4>
-        </div>
-      </div>
-      <div class="rounded-xl overflow-hidden bg-black video-hover transition-all" data-aos="zoom-in">
-        <div class="aspect-video">
-          <iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=448552599&bvid=BV1cj411k7U4&cid=1271004530&p=1" class="w-full h-full" frameborder="0" allowfullscreen loading="lazy"></iframe>
-        </div>
-        <div class="p-4">
-          <h4 class="text-lg font-semibold">【小杰WIlliam】第一次剪辑练习</h4>
-        </div>
-      </div>
-      <div class="rounded-xl overflow-hidden bg-black video-hover transition-all" data-aos="zoom-in">
-        <div class="aspect-video">
-          <iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=918081204&bvid=BV1Au4y187Qo&cid=1322024533&p=1" class="w-full h-full" frameborder="0" allowfullscreen loading="lazy"></iframe>
-        </div>
-        <div class="p-4">
-          <h4 class="text-lg font-semibold">未来的人生我不确定</h4>
-        </div>
-      </div>
-      <div class="rounded-xl overflow-hidden bg-black video-hover transition-all" data-aos="zoom-in">
-        <div class="aspect-video">
-          <iframe src="https://player.bilibili.com/player.html?isOutside=true&aid=241017052&bvid=BV11e411e73e&cid=1401030203&p=1" class="w-full h-full" frameborder="0" allowfullscreen loading="lazy"></iframe>
-        </div>
-        <div class="p-4">
-          <h4 class="text-lg font-semibold">记忆困在了那场大雪里 惊醒</h4>
-        </div>
-      </div>
+      <article class="video-tile video-project" data-video-title="20岁了，你人生的目标是什么？" data-video-src="https://player.bilibili.com/player.html?isOutside=true&aid=775086784&bvid=BV1314y1W7MT&cid=887994516&p=1" data-aos="fade-up">
+        <button class="video-tile-media video-trigger" type="button" aria-label="播放20岁了，你人生的目标是什么？">
+          <span class="video-placeholder">VIEW</span>
+          <img class="video-poster" src="./image/bili-covers/BV1314y1W7MT.jpg" alt="" loading="lazy" decoding="async">
+          <span class="video-title-overlay">20岁了，你人生的目标是什么？</span>
+        </button>
+      </article>
+
+      <article class="video-tile video-project" data-video-title="The first thanksgiving" data-video-src="https://player.bilibili.com/player.html?isOutside=true&aid=733081057&bvid=BV1mD4y1e7uY&cid=902786377&p=1" data-aos="fade-up">
+        <button class="video-tile-media video-trigger" type="button" aria-label="播放The first thanksgiving">
+          <span class="video-placeholder">VIEW</span>
+          <img class="video-poster" src="./image/bili-covers/BV1mD4y1e7uY.jpg" alt="" loading="lazy" decoding="async">
+          <span class="video-title-overlay">The first thanksgiving</span>
+        </button>
+      </article>
+
+      <article class="video-tile video-project" data-video-title="在罗格斯大学一个忙碌的一天" data-video-src="https://player.bilibili.com/player.html?isOutside=true&aid=946215392&bvid=BV1cW4y1u7ZU&cid=919820327&p=1" data-aos="fade-up">
+        <button class="video-tile-media video-trigger" type="button" aria-label="播放在罗格斯大学一个忙碌的一天">
+          <span class="video-placeholder">VIEW</span>
+          <img class="video-poster" src="./image/bili-covers/BV1cW4y1u7ZU.jpg" alt="" loading="lazy" decoding="async">
+          <span class="video-title-overlay">在罗格斯大学一个忙碌的一天</span>
+        </button>
+      </article>
+
+      <article class="video-tile video-project" data-video-title="「新泽西」罗格斯大学航拍" data-video-src="https://player.bilibili.com/player.html?isOutside=true&aid=867162461&bvid=BV1JV4y1D7fs&cid=1087438320&p=1" data-aos="fade-up">
+        <button class="video-tile-media video-trigger" type="button" aria-label="播放「新泽西」罗格斯大学航拍">
+          <span class="video-placeholder">VIEW</span>
+          <img class="video-poster" src="./image/bili-covers/BV1JV4y1D7fs.jpg" alt="" loading="lazy" decoding="async">
+          <span class="video-title-overlay">「新泽西」罗格斯大学航拍</span>
+        </button>
+      </article>
+
+      <article class="video-tile video-project" data-video-title="每一件事情发生都有原因" data-video-src="https://player.bilibili.com/player.html?isOutside=true&aid=655103117&bvid=BV1Qa4y1A7wE&cid=1097609725&p=1" data-aos="fade-up">
+        <button class="video-tile-media video-trigger" type="button" aria-label="播放每一件事情发生都有原因">
+          <span class="video-placeholder">VIEW</span>
+          <img class="video-poster" src="./image/bili-covers/BV1Qa4y1A7wE.jpg" alt="" loading="lazy" decoding="async">
+          <span class="video-title-overlay">每一件事情发生都有原因</span>
+        </button>
+      </article>
+
+      <article class="video-tile video-project" data-video-title="〖小杰WIlliam〗第一次剪辑练习" data-video-src="https://player.bilibili.com/player.html?isOutside=true&aid=448552599&bvid=BV1cj411k7U4&cid=1271004530&p=1" data-aos="fade-up">
+        <button class="video-tile-media video-trigger" type="button" aria-label="播放〖小杰WIlliam〗第一次剪辑练习">
+          <span class="video-placeholder">VIEW</span>
+          <img class="video-poster" src="./image/bili-covers/BV1cj411k7U4.jpg" alt="" loading="lazy" decoding="async">
+          <span class="video-title-overlay">〖小杰WIlliam〗第一次剪辑练习</span>
+        </button>
+      </article>
+
+      <article class="video-tile video-project" data-video-title="未来的人生我不确定" data-video-src="https://player.bilibili.com/player.html?isOutside=true&aid=918081204&bvid=BV1Au4y187Qo&cid=1322024533&p=1" data-aos="fade-up">
+        <button class="video-tile-media video-trigger" type="button" aria-label="播放未来的人生我不确定">
+          <span class="video-placeholder">VIEW</span>
+          <img class="video-poster" src="./image/bili-covers/BV1Au4y187Qo.jpg" alt="" loading="lazy" decoding="async">
+          <span class="video-title-overlay">未来的人生我不确定</span>
+        </button>
+      </article>
+
+      <article class="video-tile video-project" data-video-title="记忆困在了那场大雪里 惊醒" data-video-src="https://player.bilibili.com/player.html?isOutside=true&aid=241017052&bvid=BV11e411e73e&cid=1401030203&p=1" data-aos="fade-up">
+        <button class="video-tile-media video-trigger" type="button" aria-label="播放记忆困在了那场大雪里 惊醒">
+          <span class="video-placeholder">VIEW</span>
+          <img class="video-poster" src="./image/bili-covers/BV11e411e73e.jpg" alt="" loading="lazy" decoding="async">
+          <span class="video-title-overlay">记忆困在了那场大雪里 惊醒</span>
+        </button>
+      </article>
     </div>
   </section>
+
+  <div class="video-modal" id="videoModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="videoModalTitle">
+    <div class="video-modal-panel" role="document">
+      <div class="video-modal-top">
+        <p class="video-modal-title" id="videoModalTitle">Work</p>
+        <button class="video-modal-close" type="button" aria-label="关闭视频">×</button>
+      </div>
+      <div class="video-modal-frame" id="videoModalFrame"></div>
+    </div>
+  </div>
 
   <!-- Footer -->
   <footer class="bg-black text-center py-12 text-sm text-gray-500">
@@ -164,6 +388,101 @@
 
   <script>
     AOS.init({ once: true });
+
+    const videoProjects = Array.from(document.getElementsByClassName('video-project'));
+    const videoModal = document.getElementById('videoModal');
+    const videoModalFrame = document.getElementById('videoModalFrame');
+    const videoModalTitle = document.getElementById('videoModalTitle');
+    const videoModalClose = document.querySelector('.video-modal-close');
+    let lastVideoTrigger = null;
+
+    const clearModalVideo = () => {
+      if (videoModalFrame) {
+        videoModalFrame.innerHTML = '';
+      }
+    };
+
+    const closeVideoModal = () => {
+      if (!videoModal) {
+        return;
+      }
+
+      clearModalVideo();
+      videoModal.classList.remove('active');
+      videoModal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('modal-open');
+
+      if (lastVideoTrigger) {
+        lastVideoTrigger.focus();
+      }
+    };
+
+    const openVideoModal = (project, trigger) => {
+      const embedUrl = project.dataset.videoSrc;
+      const title = project.dataset.videoTitle || 'Work';
+
+      if (!embedUrl) {
+        Array.from(project.getElementsByClassName('video-trigger')).forEach((item) => {
+          item.setAttribute('disabled', 'disabled');
+          item.setAttribute('aria-disabled', 'true');
+        });
+        return;
+      }
+
+      lastVideoTrigger = trigger;
+      clearModalVideo();
+      videoModalTitle.textContent = title;
+
+      const iframe = document.createElement('iframe');
+      iframe.src = embedUrl;
+      iframe.setAttribute('frameborder', '0');
+      iframe.setAttribute('allowfullscreen', '');
+      iframe.setAttribute('loading', 'lazy');
+      iframe.title = title;
+
+      videoModalFrame.appendChild(iframe);
+      videoModal.classList.add('active');
+      videoModal.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('modal-open');
+      videoModalClose.focus();
+    };
+
+    videoProjects.forEach((project) => {
+      if (!project.dataset.videoSrc) {
+        Array.from(project.getElementsByClassName('video-trigger')).forEach((trigger) => {
+          trigger.setAttribute('disabled', 'disabled');
+          trigger.setAttribute('aria-disabled', 'true');
+        });
+      }
+
+      Array.from(project.getElementsByClassName('video-trigger')).forEach((trigger) => {
+        trigger.addEventListener('click', () => {
+          openVideoModal(project, trigger);
+        });
+      });
+    });
+
+    document.querySelectorAll('.video-poster').forEach((poster) => {
+      poster.addEventListener('error', () => {
+        poster.removeAttribute('src');
+        poster.setAttribute('aria-hidden', 'true');
+        poster.closest('.video-tile-media')?.classList.add('is-poster-missing');
+      });
+    });
+
+    videoModalClose?.addEventListener('click', closeVideoModal);
+
+    videoModal?.addEventListener('click', (event) => {
+      if (event.target === videoModal) {
+        closeVideoModal();
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && videoModal?.classList.contains('active')) {
+        closeVideoModal();
+      }
+    });
   </script>
 </body>
 </html>
